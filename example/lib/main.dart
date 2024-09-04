@@ -32,15 +32,12 @@ class _MyAppState extends State<MyApp> {
       final activeApps = await systemWindows.getActiveApps();
 
       if (Platform.isMacOS) {
-        hasScreenRecordingPermissions =
-            await systemWindows.hasScreenRecordingPermission();
+        hasScreenRecordingPermissions = await systemWindows.hasScreenRecordingPermission();
       } else {
         hasScreenRecordingPermissions = true;
       }
 
-      final wl = activeApps
-          .map((w) => Window(w.name, w.title, w.isActive, 0, 0))
-          .toList();
+      final wl = activeApps.map((w) => Window(w.name, w.title, w.isActive, 0, 0)).toList();
 
       if (windowsToShow.isEmpty) {
         windowsToShow = wl;
@@ -48,8 +45,7 @@ class _MyAppState extends State<MyApp> {
 
       for (var element in wl) {
         if (element.isActive) {
-          final activeWindow =
-              windowsToShow.firstWhere((window) => window.name == element.name);
+          final activeWindow = windowsToShow.firstWhere((window) => window.name == element.name);
 
           activeWindow.previousActivityForce = activeWindow.activityForce;
           activeWindow.activityForce = activeWindow.activityForce + 100;
@@ -98,8 +94,7 @@ class _MyAppState extends State<MyApp> {
                           children: [
                             TweenAnimationBuilder<int>(
                               tween: IntTween(
-                                begin:
-                                    windowsToShow[index].previousActivityForce,
+                                begin: windowsToShow[index].previousActivityForce,
                                 end: windowsToShow[index].activityForce,
                               ),
                               duration: Duration(milliseconds: 1000),
@@ -134,10 +129,8 @@ class _MyAppState extends State<MyApp> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                    "Name: " + windowsToShow[index].name ?? ""),
-                                Text("Title: " + windowsToShow[index].title ??
-                                    ""),
+                                Text("Name: " + windowsToShow[index].name ?? ""),
+                                Text("Title: " + windowsToShow[index].title ?? ""),
                               ],
                             )),
                       ],
